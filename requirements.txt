@@ -1,0 +1,8 @@
+google-auth
+google-auth-oauthlib
+google-auth-httplib2
+google-api-python-client
+beautifulsoup4~=4.12.3
+requests
+pydantic~=2.9.2
+crewai~=0.76.9

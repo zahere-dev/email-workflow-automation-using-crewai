@@ -1,0 +1,36 @@
+parse_and_triage_task:
+  description: >
+    Parse the input email {email_content}, identify the appropriate category (e.g., lead, support inquiry, project update, etc.), and decide the next action, such as creating a follow-up task or storing for future reference.
+  expected_output: >
+    - Category of the email (e.g., lead, support inquiry, project update)
+    - Recommended action (e.g., create Asana task, send automated reply, store in DB)
+    - Any additional notes or clarifications to aid the next agent
+    - Email content
+    - Sender Email
+    - Sender Name
+  agent: email_parser_triage_agent
+
+
+asana_task_creation:
+  description: >
+    Based on the email category and recommended action provided by the Email Parse and Triage Agent, create a new task in Asana.
+    Include relevant details, such as task title, description, assigned team members, priority level, due date, and link to Asana task.
+  expected_output: >
+    - Asana_Task_Title
+    - Task_Description
+    - Assignee
+    - Priority_Level
+    - Due_Date
+    - Asana_Task_Link
+  agent: asana_ops_agent
+
+
+db_storage_task:
+  description: >
+    Use the email parsed content by email_parser_triage_agenta and asana task details by asana_ops_agent,
+    such as sender’s name, contact details, email content, and category, asana task title, and asana task link in the database.
+    Update any existing records if this is a follow-up.
+  expected_output: >
+    - Database entry with sender’s name, contact details, email content, category, asana task title and any additional relevant information.
+    - Note if this is a new entry or an update to an existing record.
+  agent: database_ops_agent
